@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Hub | Finixz Market</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: sans-serif; background-color: #0d0d0d; text-align: center; padding: 20px; color: white; }
+        .section-card { max-width: 450px; margin: 20px auto; background: #1a1a1a; padding: 20px; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #007bff; }
+        .qris-img { width: 100%; max-width: 160px !important; margin: 15px auto; display: block; border-radius: 10px; }
+        .wallet-card { background: #252525; padding: 15px; margin: 10px 0; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; }
+        .icon-circle { background: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold; }
+        .step-item { display: flex; align-items: flex-start; margin: 12px 0; text-align: left; }
+        .step-num { background: #448aff; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 0.85em; font-weight: bold; flex-shrink: 0; margin-top: 2px; }
+        .step-text { margin: 0; font-size: 0.95em; line-height: 1.4; }
+        button { background-color: #448aff; color: white; border: none; padding: 10px 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; }
+        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); overflow-y: auto; padding: 40px 0; }
+        .modal-content { margin: 0 auto; padding: 25px; width: 85%; max-width: 320px; background: #1a1a1a; border-radius: 20px; color: white; text-align: center; border: 2px solid #448aff; box-shadow: 0 0 15px rgba(68, 138, 255, 0.3); }
+        
+        .modal-content h2.text-kecil { font-size: 0.85em !important; line-height: 1.4; }
+        
+        .close-btn { float: right; cursor: pointer; font-size: 24px; color: #fff; }
+        #toast { visibility: hidden; width: max-content; background-color: #28a745; color: #fff; text-align: center; border-radius: 8px; padding: 12px 20px; position: fixed; z-index: 1000; bottom: 30px; left: 50%; transform: translateX(-50%); font-family: 'Bebas Neue', sans-serif; }
+    </style>
+</head>
+<body>
+
+    <!-- [Sisa kode tetap sama] -->
+    <div class="section-card">
+        <img src="https://ia902908.us.archive.org/14/items/paymentfoto/20260627_090931.jpg" alt="Profile" class="profile-img">
+        <h1>FINIXZ MARKET</h1>
+    </div>
+
+    <div class="section-card">
+        <h2>METODE INSTAN: QRIS</h2>
+        <p>ATAS NAMA: <strong>FINIXZ MARKET</strong></p>
+        <img src="https://ia902908.us.archive.org/14/items/paymentfoto/Proyek%20Baru%2042%20%5B7FA52B8%5D.png" alt="QRIS" class="qris-img">
+        <br>
+        <button onclick="showModal()">TAMPILKAN QRIS</button>
+    </div>
+
+    <div class="section-card">
+        <h2 style="text-align: left; margin-bottom: 5px;">METODE MANUAL:</h2>
+        <h2 style="text-align: left; margin-top: 0;">E-WALLET</h2>
+        
+        <div class="wallet-card">
+            <div style="display: flex; align-items: center;">
+                <div class="icon-circle">G</div>
+                <div style="text-align: left;">
+                    <div style="font-weight: bold;">GoPay</div>
+                    <div id="num1" style="font-size: 0.9em; color: #ccc;">085784078389</div>
+                </div>
+            </div>
+            <button id="btn1" onclick="copyById('num1', 'btn1')">SALIN</button>
+        </div>
+        <div class="wallet-card">
+            <div style="display: flex; align-items: center;">
+                <div class="icon-circle">D</div>
+                <div style="text-align: left;">
+                    <div style="font-weight: bold;">DANA</div>
+                    <div id="num2" style="font-size: 0.9em; color: #ccc;">085784078389</div>
+                </div>
+            </div>
+            <button id="btn2" onclick="copyById('num2', 'btn2')">SALIN</button>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2 style="text-align: left; color: #448aff; margin-bottom: 15px;">PANDUAN & INFORMASI</h2>
+        <h3 style="text-align: left; font-size: 1em;">ⓘ LANGKAH PEMBAYARAN</h3>
+        <div class="step-item"><div class="step-num">1</div><p class="step-text">Gunakan aplikasi e-wallet (DANA/GoPay) atau Mobile Banking Anda.</p></div>
+        <div class="step-item"><div class="step-num">2</div><p class="step-text">Pilih opsi 'Scan QRIS' untuk metode instan, atau 'Kirim/Transfer' untuk metode manual.</p></div>
+        <div class="step-item"><div class="step-num">3</div><p class="step-text">Masukkan nominal pembayaran dengan benar dan konfirmasi transaksi.</p></div>
+        <div class="step-item"><div class="step-num">4</div><p class="step-text">Ambil tangkapan layar (screenshot) bukti pembayaran Anda yang valid (tanpa di crop/edit).</p></div>
+        <div class="step-item"><div class="step-num">5</div><p class="step-text">Kirimkan bukti tersebut kepada admin melalui chat/kontak resmi untuk konfirmasi.</p></div>
+    </div>
+
+    <div id="qrisModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="color: #448aff; margin: 10px 0;">SCAN QRIS DI BAWAH INI</h2>
+            <p>Atas Nama: <strong>FINIXZ MARKET</strong></p>
+            <img src="https://ia902908.us.archive.org/14/items/paymentfoto/Proyek%20Baru%2042%20%5B7FA52B8%5D.png" style="width:100%; border: 4px solid white; border-radius: 10px; margin: 10px 0;">
+
+            <h2 class="text-kecil" style="margin: 10px 0;">ANDA BISA SCREENSHOT ATAU DOWNLOAD QRIS INI.</h2>
+            <h2 class="text-kecil" style="margin: 10px 0;">TEKAN DAN TAHAN DI BAGIAN QRIS HINGGA MUNCUL OPSI DOWNLOAD.</h2>
+            <h2 class="text-kecil" style="margin: 10px 0;">SCAN QRIS DI ATAS DAN JANGAN LUPA KIRIMKAN BUKTI TRANSAKSI NYA.</h2>
+            <h2 class="text-kecil" style="margin: 10px 0;">TOLONG KIRIM BUKTI TRANSAKSI TANPA DI POTONG ATAU DI EDIT.</h2>
+        </div>
+    </div>
+
+    <div id="toast">Nomor tersalin!</div>
+
+    <script>
+        function showModal() { document.getElementById("qrisModal").style.display = "block"; }
+        function closeModal() { document.getElementById("qrisModal").style.display = "none"; }
+        
+        function showToast() {
+            var x = document.getElementById("toast");
+            x.style.visibility = "visible";
+            setTimeout(function(){ x.style.visibility = "hidden"; }, 2000);
+        }
+
+        function copyById(id, btnId) {
+            const text = document.getElementById(id).innerText;
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            const btn = document.getElementById(btnId);
+            const originalColor = btn.style.backgroundColor;
+            
+            btn.style.backgroundColor = "#28a745";
+            btn.innerText = "TERSALIN";
+            
+            setTimeout(() => {
+                btn.style.backgroundColor = originalColor;
+                btn.innerText = "SALIN";
+            }, 1000);
+
+            showToast();
+        }
+    </script>
+</body>
+</html>
